@@ -31,7 +31,7 @@ class ResearchCrewAgents:
         self.gemma_7b = ChatGroq(temperature=0.7, groq_api_key=os.environ.get("GROQ_API_KEY"), model_name="gemma-7b-it")
         
         # CHANGE YOUR MODEL HERE
-        self.selected_llm = self.llama3_70b
+        self.selected_llm = self.mixtral_8x7b
     def researcher(self):
     # Detailed agent setup for the Research Expert
         return Agent(
