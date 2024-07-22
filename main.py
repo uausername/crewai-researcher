@@ -8,9 +8,9 @@ from tasks import ResearchCrewTasks
 
 
 class ResearchCrew:
-    def __init__(self, inputs):
+    def __init__(self, inputs, selected_model):  # Add selected_model parameter
         self.inputs = inputs
-        self.agents = ResearchCrewAgents()
+        self.agents = ResearchCrewAgents(selected_model)  # Pass selected_model to ResearchCrewAgents
         self.tasks = ResearchCrewTasks()
 
     def run(self):

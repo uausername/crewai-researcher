@@ -9,7 +9,7 @@ from crewai_tools import SerperDevTool,WebsiteSearchTool, ScrapeWebsiteTool
 
 class ResearchCrewAgents:
 
-    def __init__(self):
+    def __init__(self, selected_model):  # Accept selected_model parameter
         # Initialize tools if needed
         self.serper = SerperDevTool()
         self.web = WebsiteSearchTool()
@@ -31,7 +31,21 @@ class ResearchCrewAgents:
         self.gemma_7b = ChatGroq(temperature=0.7, groq_api_key=os.environ.get("GROQ_API_KEY"), model_name="gemma-7b-it")
         
         # CHANGE YOUR MODEL HERE
-        self.selected_llm = self.mixtral_8x7b
+        # self.selected_llm = self.mixtral_8x7b
+        # Now, select the model based on the selected_model parameter
+        self.selected_llm = self._select_model(selected_model)
+
+    def _select_model(self, model_name):
+        # Map model names to the corresponding model objects
+        model_mapping = {
+            "GPT-3.5 Turbo": self.gpt3_5_turbo_1106,
+            "GPT-4 Turbo": self.gpt4,
+            "GPT-4o Mini": self.gpt4o_mini,
+            "Llama3-8b": self.llama3_8b,
+            "Mixtral-8x7b": self.mixtral_8x7b,
+        }
+        return model_mapping.get(model_name, self.mixtral_8x7b)  # Default to mixtral_8x7b if not found
+    
     def researcher(self):
     # Detailed agent setup for the Research Expert
         return Agent(
